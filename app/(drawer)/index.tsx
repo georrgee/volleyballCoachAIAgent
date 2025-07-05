@@ -1,9 +1,10 @@
-import { View, Text } from 'react-native';
+import { Text } from 'react-native';
+import { ScreenBackground } from '@/components/ScreenBackground';
 
 export default function MainScreen() {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Main Content</Text>
-    </View>
+    <ScreenBackground>
+      <Text style={{ color: 'white', textAlign: 'center' }}>Main Content</Text>
+    </ScreenBackground>
   );
 }
