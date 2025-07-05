@@ -1,10 +1,13 @@
 import { Text } from 'react-native';
-import { ScreenBackground } from '@/components/ScreenBackground';
+import { LinearGradientScreen } from '@/components/screens';
 
 export default function MainScreen() {
+  
   return (
-    <ScreenBackground>
-      <Text style={{ color: 'white', textAlign: 'center' }}>Main Content</Text>
-    </ScreenBackground>
+    <LinearGradientScreen>
+      <Text style={{ color: 'white', textAlign: 'center' }}>
+        Main Content
+      </Text>
+    </LinearGradientScreen>
   );
 }
