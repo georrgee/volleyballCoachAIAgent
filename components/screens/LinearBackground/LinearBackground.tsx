@@ -9,7 +9,7 @@ import { styles } from './styles';
  * @param { ReactNode } children Accepts other components  
  * @description Screen component to display content 
  */
-const LinearGradientScreen = ({ children }: { children: ReactNode }) => {
+const LinearGradientScreen = ({ children }: { children?: ReactNode }) => {
 
   const colorScheme = useColorScheme();
   const gradientColors = Colors[colorScheme ?? 'light'].screenBackground;

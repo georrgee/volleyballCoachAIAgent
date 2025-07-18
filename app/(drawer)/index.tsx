@@ -1,5 +1,6 @@
-import { Text } from 'react-native';
+import { ChatInputContainer } from '@/components/organisms';
 import { LinearGradientScreen } from '@/components/screens';
+import { Text } from 'react-native';
 
 export default function MainScreen() {
   
@@ -8,6 +9,9 @@ export default function MainScreen() {
       <Text style={{ color: 'white', textAlign: 'center' }}>
         Main Content
       </Text>
+
+      <ChatInputContainer />
+      
     </LinearGradientScreen>
   );
-}
+};
