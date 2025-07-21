@@ -3,7 +3,15 @@ import { Drawer } from 'expo-router/drawer';
 
 export default function DrawerLayout() {
   return (
-    <Drawer drawerContent={(props) => <SideMenu {...props} />}>
+    <Drawer 
+      drawerContent={(props) => <SideMenu {...props} />}
+      screenOptions={{
+        drawerStyle: {
+          backgroundColor: 'transparent',
+        },
+        overlayColor: 'transparent',
+      }}
+    >
       <Drawer.Screen
         name="index"
         options={{
