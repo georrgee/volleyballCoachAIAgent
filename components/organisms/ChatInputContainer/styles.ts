@@ -1,10 +1,8 @@
 import { Dimensions, StyleSheet } from "react-native";
-
 /**
  * @author George Garcia
  * @description Styling sheet for the ChatInputContainer.tsx (Organism Component)
  */
-
 export const styles = StyleSheet.create({
 
   chatBoxContainer: {
