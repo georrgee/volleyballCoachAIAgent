@@ -74,7 +74,7 @@ const ChatInputContainer = () => {
         numberOfLines={0}
         onChangeText={setMessage}
         placeholder="What are some good drills to do to improve as a setter?"
-        placeholderTextColor={'gray' + 20}
+        placeholderTextColor={'gray'}
         onSubmitEditing={handleSubmit} // Handle enter press
         returnKeyType="default" />
 

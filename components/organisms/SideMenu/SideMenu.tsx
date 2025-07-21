@@ -1,6 +1,5 @@
 import { DrawerContentComponentProps, DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
 import React from 'react';
-
 /**
  * @author George Garcia
  * @param { DrawerContentComponentProps } props takes in drawer content props
