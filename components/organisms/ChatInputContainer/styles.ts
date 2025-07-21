@@ -4,46 +4,66 @@ import { Dimensions, StyleSheet } from "react-native";
  * @description Styling sheet for the ChatInputContainer.tsx (Organism Component)
  */
 export const styles = StyleSheet.create({
-
   chatBoxContainer: {
-    flex: 1,
-    padding: 10,
-    width: Dimensions.get('window').width,
-  },
-
-  messageDisplay: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    marginBottom: 10,
+    width: Dimensions.get('window').width - 40,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    paddingHorizontal: 20,
+    paddingVertical: 20,
+    borderWidth: 1,
+    borderRadius: 30,
+    borderColor: 'rgba(255, 255, 255, 0.1)',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    minHeight: 180,
   },
   
-  messageText: {
-    fontSize: 16,
-    marginBottom: 5,
-    color: 'white'
-  },
-
-  typingIndicator: {
-    fontSize: 14,
-    color: 'gray',
-  },
-
-  inputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.3)', // Semi-transparent for dark theme
-    borderRadius: 30,
-    padding: 10,
+  dividerLineStyle: {
+    width: Dimensions.get('window').width - 100,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    //backgroundColor: 'transparent',
+    alignSelf: 'center',
+    marginVertical: 15
   },
 
   input: {
-    flex: 1,
+    minHeight: 80,
+    maxHeight: 120,
     color: 'white',
-    padding: 10,
-    marginHorizontal: 10,
+    fontSize: 16,
+    fontFamily: 'Lato-Regular',
+    padding: 0, // Remove default padding
+    margin: 0,
+    textAlignVertical: 'top'
+  },
+
+  inputPlaceholder: {
+    minHeight: 80,
+    maxHeight: 120,
+    color: 'white',
+    fontSize: 16,
+    fontFamily: 'Lato-Italic', // For placeholder
+    padding: 0,
+    margin: 0,
+    textAlignVertical: 'top'
+  },
+
+  buttonContainer: {
+    //backgroundColor: 'red',
+    //flex: 1,
+    alignItems: 'flex-end',
+    paddingHorizontal: 0,
+    paddingVertical: 0,
+  },
+
+  askButtonTextStyle: {
+    color: 'black',
+    fontSize: 15,
+    fontFamily: 'Lato-Bold'
   },
   
   iconButton: {
-    marginHorizontal: 5,
+    marginHorizontal: 0,
   },
 });
