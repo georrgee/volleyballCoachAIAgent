@@ -14,4 +14,7 @@ router.get('/:sessionId', sessionController.getSession);
 // DELETE /api/sessions/:sessionId - Delete session
 router.delete('/:sessionId', sessionController.deleteSession);
 
+// POST /api/sessions - Create session
+router.post('/', sessionController.createSession);
+
 module.exports = router;

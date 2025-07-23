@@ -1,63 +1,58 @@
 import { DividerLine } from '@/components/atoms';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
+import { sessionService } from '@/services/sessionService';
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import React, { useRef, useState } from 'react';
-import { Animated, Keyboard, TextInput, View } from 'react-native';
+import { ActivityIndicator, Keyboard, TextInput, View } from 'react-native';
 import { styles } from './styles';
 
-const ChatInputContainer = () => {
+interface ChatInputContainerProps {
+  sessionId?: string;
+  onMessageSent?: () => void;
+}
+
+const ChatInputContainer: React.FC<ChatInputContainerProps> = (props) => {
+
+  const { sessionId = undefined, onMessageSent = undefined } = props;
 
   // * MARK - Hooks
   const colorScheme = useColorScheme();
   const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState<string[]>([]);
-  // const [typingText, setTypingText] = useState('Thinking...');
-  const [isTyping, setIsTyping] = useState(false);
-  const fadeAnim = useState(new Animated.Value(0))[0];
+  const [isLoading, setIsLoading] = useState(false);
   const inputRef = useRef<TextInput>(null);
 
   // * MARK - Variables
   const gradientColors = Colors[colorScheme ?? 'light'].screenBackground;
 
-  // * MARK - useEffect Life cycles
-  // useEffect(() => {
-  //   if (!isTyping) return;
-
-  //   const texts = ['Thinking...', 'Processing...', 'Analyzing...'];
-  //   let index = 0;
-  //   const interval = setInterval(() => {
-  //     index = (index + 1) % texts.length;
-  //     setTypingText(texts[index]);
-  //     Animated.timing(fadeAnim, {
-  //       toValue: 1,
-  //       duration: 500,
-  //       useNativeDriver: true,
-  //     }).start(() => {
-  //       fadeAnim.setValue(0);
-  //     });
-  //   }, 2000);
-
-  //   const timeout = setTimeout(() => {
-  //     setIsTyping(false);
-  //     setMessages([...messages, 'Placeholder response from coach']);
-  //     clearInterval(interval);
-  //   }, 6000); // Simulate 6 seconds response time
-
-  //   return () => {
-  //     clearInterval(interval);
-  //     clearTimeout(timeout);
-  //   };
-  // }, [isTyping, fadeAnim, messages]);
-
-  const handleAskCoachButtonPress = () => {
-    if (message.trim()) {
-      setMessages([...messages, message]);
-      setMessage('');
-      setIsTyping(true);
+  const handleAskCoachButtonPress = async () => {
+    if (!message.trim()) return;
+    
+    try {
+      setIsLoading(true);
       Keyboard.dismiss();
+      
+      if (sessionId) {
+        // If we have a sessionId, send the message to the backend
+        await sessionService.sendMessage(sessionId, message.trim());
+        
+        // Call the callback to refresh the conversation
+        if (onMessageSent) {
+          onMessageSent();
+        }
+      } else {
+        // Handle the case when there's no sessionId (e.g., on the home screen)
+        console.log('No sessionId provided, message not sent to backend');
+      }
+      
+      // Clear the input field
+      setMessage('');
+    } catch (error) {
+      console.error('Error sending message:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -76,22 +71,27 @@ const ChatInputContainer = () => {
         placeholder="What are some good drills to do to improve as a setter?"
         placeholderTextColor={'gray'}
         onSubmitEditing={handleSubmit} // Handle enter press
-        returnKeyType="default" />
+        returnKeyType="default"
+        editable={!isLoading} // Disable input while loading
+      />
 
       <DividerLine thickness='thick' style={styles.dividerLineStyle} />
 
       <View style={styles.buttonContainer}>
-        <Ionicons
-          name="arrow-up-circle"
-          size={44}
-          color={message.length === 0 ? 'gray' : 'white'}
-          disabled={message.length === 0}
-          onPress={handleAskCoachButtonPress}
-          style={styles.iconButton} />
+        {isLoading ? (
+          <ActivityIndicator size="large" color="white" style={styles.iconButton} />
+        ) : (
+          <Ionicons
+            name="arrow-up-circle"
+            size={44}
+            color={message.length === 0 ? 'gray' : 'white'}
+            disabled={message.length === 0}
+            onPress={handleAskCoachButtonPress}
+            style={styles.iconButton} />
+        )}
       </View>
     </LinearGradient>
   );
 };
-
 
 export default ChatInputContainer;

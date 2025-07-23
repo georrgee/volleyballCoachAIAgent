@@ -22,8 +22,19 @@ export default function DrawerLayout() {
           },
           headerTintColor: '#fff', // For text and icons
           headerShadowVisible: false, // This removes the line under the header
-        }}
-      />
+        }} />
+
+      <Drawer.Screen 
+        name='chat/[sessionId]'
+        options={{
+          headerShown: true,
+          headerTitle: '',
+          headerStyle: {
+            backgroundColor: '#1d2129'
+          },
+          headerTintColor: '#fff',
+          headerShadowVisible: false
+        }} />
     </Drawer>
   );
 }

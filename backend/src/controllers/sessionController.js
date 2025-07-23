@@ -34,3 +34,13 @@ exports.deleteSession = async (req, res, next) => {
     next(error);
   }
 };
+
+exports.createSession = async (req, res, next) => {
+  try {
+    const { title, category } = req.body;
+    const session = await sessionService.createSession({ title, category });
+    res.status(201).json(session);
+  } catch (error) {
+    next(error)
+  }
+}

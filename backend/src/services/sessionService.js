@@ -1,5 +1,7 @@
 const Session = require('../models/Session');
 const { AppError } = require('../middleware/errorHandler');
+const { v4: uuidv4 } = require('uuid'); // Make sure uuid is installed
+
 
 class SessionService {
   async getSessions(query = {}, limit = 20, page = 1) {
@@ -29,6 +31,19 @@ class SessionService {
 
   async deleteSession(sessionId) {
     return await Session.findOneAndDelete({ sessionId });
+  }
+
+  async createSession({ title, category = 'general' }) {
+    const sessionId = uuidv4();
+    const session = new Session({
+      sessionId,
+      title: title || 'New Volleyball Session',
+      category,
+      messages: []
+    });
+    
+    await session.save();
+    return session;
   }
 
   async createOrUpdateSession(sessionId, newMessages, category) {

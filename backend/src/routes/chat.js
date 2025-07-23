@@ -7,4 +7,8 @@ const router = express.Router();
 
 router.post('/', validate(chatMessageSchema), chatController.sendMessage);
 
+// new route to handle sessionId in the URL
+router.post('/:sessionId', validate(chatMessageSchema), chatController.sendMessage);
+
+
 module.exports = router;

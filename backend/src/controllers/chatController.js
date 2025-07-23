@@ -6,7 +6,8 @@ const { AppError } = require('../middleware/errorHandler');
 
 exports.sendMessage = async (req, res, next) => {
   try {
-    const { message, sessionId, conversationHistory = [] } = req.body;
+    const sessionId = req.params.sessionId || req.body.sessionId;
+    const { message, conversationHistory = [] } = req.body;
 
     if (!message || message.trim().length === 0) {
       throw new AppError('Message is required', 400);
